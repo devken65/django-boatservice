@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+
+# Env / venv
+.env
+.env.*
+.venv/
+
+# Django
+/staticfiles/
+media/
+*.sqlite3
+
+# Tools / caches
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+.hypothesis/
+.coverage
+coverage.xml
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+EOF
