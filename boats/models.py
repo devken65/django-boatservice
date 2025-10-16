@@ -26,6 +26,11 @@ class Boat(CommonModel):
     )
 
     amenities = models.ManyToManyField("boats.Amenity")
+    category = models.ForeignKey(
+        "categories.Category",
+        null=True,
+        on_delete=models.SET_NULL,
+    )
 
     def __str__(self):
         return self.name

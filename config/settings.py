@@ -40,6 +40,9 @@ CUSTOM_APPS = [
     "accounts.apps.AccountsConfig",
     "boats.apps.BoatsConfig",
     "seaplatforms.apps.SeaplatformsConfig",
+    "categories.apps.CategoriesConfig",
+    "reviews.apps.ReviewsConfig",
+    "wishlists.apps.WishlistsConfig",
 ]
 
 DEPENDENCY_APPS = ["rest_framework"]

@@ -21,6 +21,14 @@ class Seaplatform(CommonModel):
         "accounts.User",
         on_delete=models.CASCADE,
     )
+    category = models.ForeignKey(
+        "categories.Category",
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+
+    def __str__(self):
+        return self.name
 
 
 class Perk(CommonModel):
