@@ -43,6 +43,9 @@ CUSTOM_APPS = [
     "categories.apps.CategoriesConfig",
     "reviews.apps.ReviewsConfig",
     "wishlists.apps.WishlistsConfig",
+    "reservations.apps.ReservationsConfig",
+    "medias.apps.MediasConfig",
+    "direct_messages.apps.DirectMessagesConfig",
 ]
 
 DEPENDENCY_APPS = ["rest_framework"]

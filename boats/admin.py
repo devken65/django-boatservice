@@ -12,9 +12,9 @@ class BoatAdmin(admin.ModelAdmin):
         "people",
         "location",
         "price",
+        "total_amenities",
         "owner",
         "created_at",
-        "updated_at",
     )
 
     list_filter = (
@@ -23,6 +23,9 @@ class BoatAdmin(admin.ModelAdmin):
         "price",
         "amenities",
     )
+
+    def total_amenities(self, boat):
+        return boat.amenities.count()
 
 
 @admin.register(Amenity)
