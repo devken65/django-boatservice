@@ -1,0 +1,13 @@
+<h1>{{title}}</h1>
+<ul>
+    {% for boat in boats %}
+    <li>
+        <a href="/boats/{{boat.pk}}">
+            {{boat.name}}<br />
+            {% for amenity in boat.amenities.all %}
+            <span>-{{amenity.name}}<br /></span>
+            {% endfor %}
+        </a>
+    </li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,8 @@
+{% if not not_found %}
+<h1>{{boat.name}}</h1>
+<h3>{{boat.location}}</h3>
+<p>{{boat.desc}}</p>
+<h4>{{boat.category.name}}</h4>
+{% else %}
+<h1>404 Not Found</h1>
+{% endif %}

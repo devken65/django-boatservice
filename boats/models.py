@@ -2,6 +2,8 @@ from django.db import models
 
 from common.models import CommonModel
 
+RELATED_BOATS = "boats"
+
 
 # Create your models here.
 class Boat(CommonModel):
@@ -23,14 +25,30 @@ class Boat(CommonModel):
     owner = models.ForeignKey(
         "accounts.User",
         on_delete=models.CASCADE,
+        related_name=RELATED_BOATS,
     )
 
-    amenities = models.ManyToManyField("boats.Amenity")
+    amenities = models.ManyToManyField(
+        "boats.Amenity",
+        related_name=RELATED_BOATS,
+    )
     category = models.ForeignKey(
         "categories.Category",
         null=True,
         on_delete=models.SET_NULL,
+        related_name=RELATED_BOATS,
     )
+
+    def rating_ave(self):
+        review_count = self.reviews.count()
+
+        if review_count == 0:
+            return "No Reviews"
+        else:
+            total_rating = 0
+            for review in self.reviews.all().values("rating"):
+                total_rating += review["rating"]
+            return round(total_rating / review_count, 1)
 
     def __str__(self):
         return self.name
@@ -49,3 +67,6 @@ class Amenity(CommonModel):
 
     class Meta:
         verbose_name_plural = "Amenites"
+
+
+# print("\033c",end="")

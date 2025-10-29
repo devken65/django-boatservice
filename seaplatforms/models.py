@@ -2,6 +2,8 @@ from django.db import models
 
 from common.models import CommonModel
 
+RELATED_SEAPLATFORM = "seaplatforms"
+
 
 class Seaplatform(CommonModel):
     class PlatformKindChoices(models.TextChoices):
@@ -16,15 +18,20 @@ class Seaplatform(CommonModel):
     start_time = models.TimeField()
     end_time = models.TimeField()
 
-    perks = models.ManyToManyField("seaplatforms.Perk")
+    perks = models.ManyToManyField(
+        "seaplatforms.Perk",
+        related_name=RELATED_SEAPLATFORM,
+    )
     owner = models.ForeignKey(
         "accounts.User",
         on_delete=models.CASCADE,
+        related_name=RELATED_SEAPLATFORM,
     )
     category = models.ForeignKey(
         "categories.Category",
         null=True,
         on_delete=models.SET_NULL,
+        related_name=RELATED_SEAPLATFORM,
     )
 
     def __str__(self):
