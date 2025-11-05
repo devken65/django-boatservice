@@ -1,51 +1,10 @@
 # Create your views here.
-from rest_framework.decorators import api_view
-from rest_framework.exceptions import NotFound
-from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
 
 from .models import Category
 from .serializers import CategorySerializer
 
 
-@api_view(["GET", "POST"])
-def categories_all(request):
-    if request.method == "GET":
-        all_categories = Category.objects.all()
-        serializer = CategorySerializer(all_categories, many=True)
-        return Response(
-            {
-                "categories": serializer.data,
-            }
-        )
-    elif request.method == "POST":
-        serializer = CategorySerializer(data=request.data)
-        if serializer.is_valid():
-            new_category = serializer.save()
-            return Response(
-                CategorySerializer(new_category).data,
-            )
-        else:
-            return Response(serializer.errors)
-
-
-@api_view(["GET", "PUT"])
-def category(request, pk):
-    try:
-        category = Category.objects.get(pk=pk)
-    except Category.DoesNotExist:
-        # 만약, NotFound가 발생하면, 그 이후의 코드는 일절 작동하지않음
-        raise NotFound  # noqa: B904
-    if request.method == "GET":
-        serializer = CategorySerializer(category)
-        return Response(serializer.data)
-    elif request.method == "PUT":
-        serializer = CategorySerializer(
-            category,
-            data=request.data,
-            partial=True,
-        )
-        if serializer.is_valid():
-            updated_category = serializer.save()
-            return Response(CategorySerializer(updated_category).data)
-        else:
-            return Response(serializer.errors)
+class CategoryViewSet(ModelViewSet):
+    serializer_class = CategorySerializer
+    queryset = Category.objects.all()
