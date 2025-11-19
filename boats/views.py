@@ -59,7 +59,11 @@ class AmenityDetail(APIView):
 class Boats(APIView):
     def get(self, request):
         all_boats = Boat.objects.all()
-        serializer = BoatListSerializer(all_boats, many=True)
+        serializer = BoatListSerializer(
+            all_boats,
+            many=True,
+            context={"request": request},
+        )
         return Response(serializer.data)
 
     def post(self, request):
@@ -104,7 +108,10 @@ class BoatDetail(APIView):
 
     def get(self, request, pk):
         boat_object = self.get_object(pk)
-        serializer = BoatDetailSerializer(boat_object)
+        serializer = BoatDetailSerializer(
+            boat_object,
+            context={"request": request},
+        )
         return Response(serializer.data)
 
     def put(self, request, pk):
