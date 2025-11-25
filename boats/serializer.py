@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from accounts.serializers import TinyUserSerializer
 from categories.serializers import CategorySerializer
-from reviews.serializers import ReviewSerializer
+from medias.serializers import PhotoSerializer
 
 from .models import Amenity, Boat
 
@@ -19,6 +19,7 @@ class AmenitySerializer(serializers.ModelSerializer):
 class BoatListSerializer(serializers.ModelSerializer):
     rating = serializers.SerializerMethodField()
     is_owner = serializers.SerializerMethodField()
+    photo = PhotoSerializer(many=True, read_only=True)
 
     def get_rating(self, boat):
         return boat.rating_ave()
@@ -37,6 +38,7 @@ class BoatListSerializer(serializers.ModelSerializer):
             "price",
             "rating",
             "is_owner",
+            "photo",
         )
 
 
@@ -44,10 +46,10 @@ class BoatDetailSerializer(serializers.ModelSerializer):
     owner = TinyUserSerializer(read_only=True)
     amenities = AmenitySerializer(read_only=True, many=True)
     category = CategorySerializer(read_only=True)
+    photo = PhotoSerializer(many=True, read_only=True)
 
     rating = serializers.SerializerMethodField()
     is_owner = serializers.SerializerMethodField()
-    reviews = ReviewSerializer(many=True, read_only=True)
 
     def get_rating(self, boat):
         return boat.rating_ave()

@@ -4,7 +4,7 @@ from common.models import CommonModel
 
 
 class Photo(CommonModel):
-    file = models.ImageField()
+    file = models.URLField()
     desc = models.CharField(
         max_length=140,
     )
@@ -28,7 +28,7 @@ class Photo(CommonModel):
 class Video(CommonModel):
     """Only available in seaplatforms"""
 
-    file = models.FileField()
+    file = models.URLField()
     seaplatforms = models.OneToOneField(
         "seaplatforms.Seaplatform",
         on_delete=models.CASCADE,
