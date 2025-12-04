@@ -23,6 +23,19 @@ class CustomUserAdmin(UserAdmin):
             },
         ),
         (
+            "Permissions",
+            {
+                "fields": (
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "groups",
+                    "user_permissions",
+                ),
+                "classes": ("collapse",),
+            },
+        ),
+        (
             "Important dates",
             {
                 "fields": (

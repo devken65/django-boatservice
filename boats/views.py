@@ -1,13 +1,16 @@
 from django.conf import settings
 from django.db import transaction
+from django.utils import timezone
 from rest_framework.exceptions import NotFound, ParseError, PermissionDenied
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.status import HTTP_204_NO_CONTENT
 from rest_framework.views import APIView
 
 from categories.models import Category
 from medias.serializers import PhotoSerializer
+from reservations.models import Reservation
+from reservations.serializers import CreateReservationSerializer, PublicReservationSerializer
 from reviews.serializers import ReviewSerializer
 
 from .models import Amenity, Boat
@@ -187,6 +190,42 @@ class BoatPhotos(APIView):
         if serializer.is_valid():
             photo = serializer.save(boat=boat)
             serializer = PhotoSerializer(photo)
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors)
+
+
+class BoatReservations(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self, pk):
+        try:
+            return Boat.objects.get(pk=pk)
+        except Boat.DoesNotExist:
+            raise NotFound
+
+    def get(self, request, pk):
+        boat = self.get_object(pk)
+        now = timezone.localtime(timezone.now()).date()
+        reservations = Reservation.objects.filter(
+            boat=boat,
+            kind=Reservation.ReservationKindChoices.BOAT,
+            check_in__gt=now,
+        )
+        serializer = PublicReservationSerializer(reservations, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, pk):
+        boat = self.get_object(pk)
+        serializer = CreateReservationSerializer(data=request.data)
+
+        if serializer.is_valid():
+            reservation = serializer.save(
+                boat=boat,
+                user=request.user,
+                kind=Reservation.ReservationKindChoices.BOAT,
+            )
+            serializer = PublicReservationSerializer(reservation)
             return Response(serializer.data)
         else:
             return Response(serializer.errors)

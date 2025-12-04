@@ -26,4 +26,6 @@ urlpatterns = [
     path("api/v1/categories/", include("categories.urls")),
     path("api/v1/seaplatforms/", include("seaplatforms.urls")),
     path("api/v1/medias/", include("medias.urls")),
+    path("api/v1/wishlists/", include("wishlists.urls")),
+    path("api/v1/accounts/", include("accounts.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

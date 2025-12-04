@@ -24,7 +24,7 @@ class User(AbstractUser):
     is_host = models.BooleanField(
         default=False,
     )
-    photo = models.ImageField(blank=True)
+    photo = models.URLField(blank=True)
     gender = models.CharField(
         max_length=10,
         choices=GenderChoices.choices,
