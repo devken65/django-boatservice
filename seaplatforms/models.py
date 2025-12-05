@@ -17,6 +17,7 @@ class Seaplatform(CommonModel):
     price = models.PositiveIntegerField()
     start_time = models.TimeField()
     end_time = models.TimeField()
+    people = models.PositiveIntegerField(default=0)
 
     perks = models.ManyToManyField(
         "seaplatforms.Perk",
