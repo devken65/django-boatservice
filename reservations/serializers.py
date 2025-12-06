@@ -38,15 +38,24 @@ class CreateReservationSerializer(serializers.ModelSerializer):
             check_in__lte=data["check_out"],
             check_out__gte=data["check_in"],
         ).exists():
-            raise serializers.ValidationError("Some data already Taken")
+            raise serializers.ValidationError("Some reservation already Taken")
         return data
 
 
 class PublicReservationSerializer(serializers.ModelSerializer):
+    place_name = serializers.SerializerMethodField()
+
+    def get_place_name(self, place):
+        if place.boat:
+            return place.boat.name
+        elif place.seaplatform:
+            return place.seaplatform.name
+
     class Meta:
         model = Reservation
         fields = (
             "pk",
+            "place_name",
             "check_in",
             "check_out",
             "guests",
