@@ -48,7 +48,10 @@ CUSTOM_APPS = [
     "direct_messages.apps.DirectMessagesConfig",
 ]
 
-DEPENDENCY_APPS = ["rest_framework"]
+DEPENDENCY_APPS = [
+    "rest_framework",
+    "rest_framework.authtoken",
+]
 
 DEFAULT_APPS = [
     "django.contrib.admin",
@@ -145,3 +148,12 @@ MEDIA_URL = "user-uploads/"
 
 # PAGE_SIZE
 PAGE_SIZE = 3
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+        "config.authentication.TrustMeBroAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+        "config.authentication.JWTAuthentication",
+    ]
+}
