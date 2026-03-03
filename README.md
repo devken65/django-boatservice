@@ -1,21 +1,23 @@
-# 웹사이트 기반 낚시배 예약 사이트
-### 소개
-이 프로젝트는 Django RestFramework(DRF)를 학습/응용을 목적으로 만든 개인 프로젝트입니다.  
-전체적인 학습사항 
-- Django
-  - APP / Model 의 개념
-  - Model의 Field 구축
-  - Model과 DB 간의 소통 (ORM)
-  - Template를 이용한 View구현
-  - Django RestFramework란?
-  - ViewSet 구축 (APIView)
-  - 데이터를 검증 및 JSON 변환시켜주는 Serializer
-  - ...
+<h1 align="center">웹사이트 기반 낚시배 예약 사이트</h1> 
+<h2 align="center">소개</h2>
+<p align="center">
+  이 프로젝트는 Django RestFramework(DRF)를 학습/응용을 목적으로 만든 개인 프로젝트입니다.  
+</p>
+<h2 align="center">폴더 구조</h2>
+```java
+.
+├── config                  # 프로젝트 설정
+├── common                  # 공용(APPS Blueprint)/
+│   ├── boats               # 배 관련 
+│   ├── seaplatforms        # 좌대 관련
+│   ├── categories          # 보트 / 좌대 관련 카테고리
+│   ├── direct_messages     # 채팅
+│   ├── medias              # 사진 및 영상 관련
+│   ├── reservations        # 예약 관련 
+│   ├── reviews             # 리뷰
+│   └── wishlists           # 찜 
+├── accounts                # 사용자 계정 관련
+└── uploads                 # 미디어 소스
+```
 
-- common
-  - APP 들이 사용하는 공통코드를 작성한 템플릿
-- config
-  - APP URL 등록 및 전체환경설정
-- APPS
-  - DB에 등록되는 실제 데이터 모음
 
