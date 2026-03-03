@@ -4,6 +4,7 @@
   이 프로젝트는 Django RestFramework(DRF)를 학습/응용을 목적으로 만든 개인 프로젝트입니다.  
 </p>
 <h2 align="center">폴더 구조</h2>
+
 ```java
 .
 ├── config                  # 프로젝트 설정
@@ -19,5 +20,6 @@
 ├── accounts                # 사용자 계정 관련
 └── uploads                 # 미디어 소스
 ```
+
 
 
